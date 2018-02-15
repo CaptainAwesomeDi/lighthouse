@@ -1,14 +1,15 @@
 const countLetters = (letters) => {
     let letterCounts = {};
-    let splitedletters = letters.split(' ').join('');
-    console.log(splitedletters);
-    for (let i = 0; i < splitedletters.length; i++) {
-      let currentletter = splitedletters[i];
-      if (letterCounts[currentletter] === undefined){
-        letterCounts[currentletter] = 0;
-      }
-      letterCounts[currentletter] +=1;
+    for (let i = 0; i < letters.length; i++) {
+        let currentletter = letters[i];
+        if (currentletter !== ' ') {
+            if (letterCounts[currentletter] === undefined) {
+                letterCounts[currentletter] = 0;
+            }
+            letterCounts[currentletter] += 1;
+        }
     }
+
     return letterCounts;
 }
 
