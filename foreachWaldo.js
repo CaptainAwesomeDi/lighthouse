@@ -1,7 +1,7 @@
 // The second argument/parameter is expected to be a function
 function findWaldo(arr, found) {
-  arr.forEach(function(name,i){
-    if(arr[i] === 'Waldo'){
+  arr.forEach(function(name){
+    if(name === 'Waldo'){
       found();
     }
   }); // execute callback

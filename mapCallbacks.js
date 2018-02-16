@@ -2,8 +2,8 @@ var words = ["ground", "control", "to", "major", "tom"];
 
 function map (arr,callback){
 var myArr = [];
-  arr.forEach(function(word,i){
-    var str = callback(arr[i]);
+  arr.forEach(function(word){
+    var str = callback(word);
     myArr.push(str);
   });
 console.log(myArr);
