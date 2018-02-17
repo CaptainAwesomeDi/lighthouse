@@ -1,1 +1,1 @@
-肖三妹你好！
+this is di wu's practice with git
