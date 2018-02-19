@@ -27,4 +27,4 @@ var requestOptions = {
   path: '/http-examples/step2.html'
 };
 
-//getHTML(requestOptions, printHTML);
+getHTML(requestOptions, printHTML);
