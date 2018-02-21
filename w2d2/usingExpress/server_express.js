@@ -1,9 +1,14 @@
-var express = require("express");
-var app = express();
-var PORT = process.env.PORT || 8080; // default port 8080
-app.set('view engine', 'ejs');
+const express = require("express");
+const app = express();
+const PORT = process.env.PORT || 8080; // default port 8080
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+
+app.set('view engine', 'ejs');
+
+//use middleware
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 const generateRadndomString = () => {
   let shortUrl = "";
@@ -41,7 +46,7 @@ app.get("/urls/:id", (req, res) => {
   res.render("urls_show", templateVars);
 });
 
-
+//Update
 app.post("/urls/:id", (req, res) => {
   urlDatabase[req.params.id] = req.body.longURL;
   res.redirect("/urls");
@@ -64,6 +69,7 @@ app.get("/hello", (req, res) => {
   res.end("<html><body>Hello <b>World</b></body></html>\n");
 });
 
+//redirect to a shortened URL
 app.get("/u/:shortURL", (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
   if (!longURL) {
@@ -72,13 +78,24 @@ app.get("/u/:shortURL", (req, res) => {
     res.redirect(302, longURL);
   }
 });
+
+//Delete a link
 app.post("/urls/:shortURL/delete", (req, res) => {
-
-  console.log("getting post information:", req.params.shortURL);
   delete urlDatabase[req.params.shortURL];
-
   res.redirect("/urls");
 });
+
+//GET from /login
+app.get("/login",(req,res)=>{
+  console.log('Cookies:' + req.cookies["username"]);
+});
+//Post from /login
+app.post("/login",(req,res)=>{
+res.cookie('username',req.body.username);
+res.send("Success")
+});
+
+//Create a server
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });

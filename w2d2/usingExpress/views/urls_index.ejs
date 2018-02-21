@@ -5,6 +5,7 @@
   <title>Tiny App</title>
 </head>
 <body>
+  <%-include("./partials/_header")%>
   <ul>
   <% for (key in urls){ %>
     <li><%= key +' : '+ urls[key] %>
