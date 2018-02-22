@@ -4,12 +4,19 @@ const app = express();
 const PORT = process.env.PORT || 8080; // default port 8080
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const bcrypt = require('bcrypt');
 
 app.set('view engine', 'ejs');
 
 //use middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+//How do I utlize middleware to pass same info
+// app.use((req,res,next)=>{
+//
+//   next();
+// });
 
 const generateRadndomString = () => {
   let shortUrl = "";
@@ -108,6 +115,11 @@ res.send("Success");
 app.post("/logout",(req,res)=>{
 res.clearCookie('username');
 res.redirect("/urls");
+})
+
+//GET from /register
+app.get("/register", (req,res)=>{
+  res.render("urls_register")
 });
 
 //Create a server
