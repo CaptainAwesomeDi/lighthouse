@@ -1,3 +1,4 @@
+"use strict";
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 8080; // default port 8080
@@ -30,18 +31,26 @@ app.get("/", (req, res) => {
 });
 
 app.get("/urls", (req, res) => {
-  let templateVars = { urls: urlDatabase };
+  let templateVars = {
+    urls: urlDatabase,
+    username:req.cookies["username"]
+  };
   res.render("urls_index", templateVars);
 });
 
 app.get("/urls/new", (req, res) => {
-  res.render("urls_new");
+    let templateVars = {
+    urls: urlDatabase,
+    username:req.cookies["username"]
+  };
+  res.render("urls_new",templateVars);
 });
 
 app.get("/urls/:id", (req, res) => {
   let templateVars = {
     shortURL: req.params.id,
-    urls: urlDatabase
+    urls: urlDatabase,
+    username:req.cookies["username"]
   };
   res.render("urls_show", templateVars);
 });
@@ -92,7 +101,13 @@ app.get("/login",(req,res)=>{
 //Post from /login
 app.post("/login",(req,res)=>{
 res.cookie('username',req.body.username);
-res.send("Success")
+res.send("Success");
+});
+
+//POST from /logout
+app.post("/logout",(req,res)=>{
+res.clearCookie('username');
+res.redirect("/urls");
 });
 
 //Create a server
